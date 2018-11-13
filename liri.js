@@ -9,6 +9,18 @@ var request = require("request");
 var input = process.argv;
 var input1 = input[2];
 var input2 = input[3];
+var input0=input[0];
+var inputx =input[1];
+function instructions(){
+  if (input0==="node" &&input2===undefined && input1===undefined && inputx==="liri"||"liri.js"){
+console.log(" Please Enter one of these phrases concert-this, spotify-this-song, movie-this or do-what-it-says ")
+  }
+  else{
+    console.log ("come on man")
+  }
+};
+instructions()
+
 
 if (input1 === `concert-this`) {
 
@@ -46,35 +58,11 @@ if (input1 === `concert-this`) {
 
 else if
 (input1 === `spotify-this-song`) {
-  spot()
-
-  var spotify = new Spotify(keys.spotify);
-  var space = "\n";
-  spotify.search({ type: 'track', query: input2 }, function (err, data) {
-    if (err) {
-      console.log('Error occurred: ' + err);
-      return;
-    }
-    else if (!err) {
-      output = space + "================= DATA HERE ==================" +
-        space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
-        space + "Song Name: " + "'" + input2.toUpperCase() + "'" +
-        space + "Album Name: " + data.tracks.items[0].album.name +
-        space + "URL: " + data.tracks.items[0].album.external_urls.spotify + "\n\n\n";
-      console.log(output);
-      fs.appendFile("logtxt",output,function (err){
-        if (err) throw err;
-      })
-    }
-
-
-
-
-  });
-
-
-
+  
+  spot1()
 }
+
+
 
 
 else if
@@ -110,11 +98,11 @@ j();
 }
  
 
-// // else if
-// // (input1 === `do-what-it-says`) {
+ else if (input1 === `do-what-it-says`) {
+  
 
-
-// // }
+  randomSearch();
+};
  function j (){
   if (input1==="movie-this"&&input2===undefined){
     input2="mr nobody";
@@ -128,4 +116,71 @@ function spot(){
 
     input2= "the sign(ace of base)";
   };
+}
+
+function spot1(){
+  var spotify = new Spotify(keys.spotify);
+  var space = "\n";
+  spotify.search({ type: 'track', query: input2 }, function (err, data) {
+    if (err) {
+      console.log('Error occurred: ' + err);
+      return;
+    }
+    else if (!err) {
+      output = space + "================= DATA HERE ==================" +
+        space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
+        space + "Song Name: " + "'" + input2.toUpperCase() + "'" +
+        space + "Album Name: " + data.tracks.items[0].album.name +
+        space + "URL: " + data.tracks.items[0].album.external_urls.spotify + "\n\n\n";
+      console.log(output);
+      fs.appendFile("logtxt",output,function (err){
+        if (err) throw err;
+      })
+    }
+
+
+
+
+  });
+}
+
+function randomSearch() {
+
+var input2
+
+  fs.readFile("randomtext.txt", "utf8", function(respError, data) {
+
+
+
+      var randomArray = data.split(",")
+      var input4 =randomArray[1];
+
+     
+
+  var spotify = new Spotify(keys.spotify);
+  var space = "\n";
+  spotify.search({ type: 'track', query:input4 }, function (err, data) {
+    if (err) {
+      console.log('Error occurred: ' + err);
+      return;
+    }
+    else if (!err) {
+      output = space + "================= DATA HERE ==================" +
+        space + "Artist Name: " + data.tracks.items[0].album.artists[0].name +
+        space + "Song Name: " + "'" + input4.toUpperCase() + "'" +
+        space + "Album Name: " + data.tracks.items[0].album.name +
+        space + "URL: " + data.tracks.items[0].album.external_urls.spotify + "\n\n\n";
+      console.log(output);
+      fs.appendFile("logtxt",output,function (err){
+        if (err) throw err;
+      })
+    }
+
+
+
+
+  });
+
+      
+  })
 }
